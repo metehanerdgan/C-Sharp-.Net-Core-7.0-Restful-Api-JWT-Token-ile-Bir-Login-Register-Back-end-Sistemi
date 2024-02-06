@@ -9,14 +9,16 @@ using NodebookApp.Services;
 using NodebookApp.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+
+// Servisleri konteynere ekleyerek bağımlılıkları yönetir
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AuthenticationDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AuthenticationConn"));
 });
 builder.Services.AddSwaggerGen();
+
+// Identity ve JWT Authentication'ı konfigure eder
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -39,12 +41,15 @@ builder.Services.AddAuthentication(auth =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:Key"])),
         ValidateIssuerSigningKey = true
     };
- }) ;
+}) ;
+
+// Servislerin yaşam döngüsünü yönetir
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISecurtiyService, JWTSecurityToken>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP istek pipeline'ını konfigure eder
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -53,10 +58,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
-

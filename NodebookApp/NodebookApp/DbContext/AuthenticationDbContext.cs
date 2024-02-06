@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NodebookApp.DbContext
 {
-	public class AuthenticationDbContext : IdentityDbContext
-	{
-		public AuthenticationDbContext(DbContextOptions options) : base(options)
-		{
-		}
-	}
+    // IdentityDbContext sınıfından kalıtım alarak veritabanı işlemlerini yönetir
+    public class AuthenticationDbContext : IdentityDbContext
+    {
+        public AuthenticationDbContext(DbContextOptions options) : base(options)
+        {
+        }
+    }
 }
-

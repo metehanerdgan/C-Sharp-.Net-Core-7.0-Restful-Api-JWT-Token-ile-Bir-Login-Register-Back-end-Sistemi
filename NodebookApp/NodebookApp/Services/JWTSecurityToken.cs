@@ -9,8 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace NodebookApp.Services
 {
-	public class JWTSecurityToken:ISecurtiyService
-	{
+    // ISecurityService arayüzünden kalıtım alarak JWT oluşturma ve doğrulama işlemlerini yönetir
+    public class JWTSecurityToken:ISecurtiyService
+    {
         private readonly IConfiguration configuration;
 
         public JWTSecurityToken(IConfiguration configuration)
@@ -20,6 +21,7 @@ namespace NodebookApp.Services
 
         public DateTime? ValidTo { get; internal set; }
 
+        // JWT oluşturur
         public void SecureToken(Claim[] claims, out JwtSecurityToken token, out string tokenAstring)
         {
             try
@@ -42,10 +44,10 @@ namespace NodebookApp.Services
             }
         }
 
+        // Bu metot implemente edilmemiş
         public void SecureToken(Claim[] claims, out JWTSecurityToken token, out string tokenAstring)
         {
             throw new NotImplementedException();
         }
     }
 }
-

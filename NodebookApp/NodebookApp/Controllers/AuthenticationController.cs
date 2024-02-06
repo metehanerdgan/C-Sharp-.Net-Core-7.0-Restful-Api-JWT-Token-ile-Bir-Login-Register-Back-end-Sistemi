@@ -7,8 +7,6 @@ using Microsoft.Identity.Client;
 using NodebookApp.Services.Interface;
 using NodebookApp.SharedVM;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace NodebookApp.Controllers
 {
     [Route("api/[controller]")]
@@ -17,11 +15,14 @@ namespace NodebookApp.Controllers
     {
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
+
         public AuthenticationController(IUserService userService,IConfiguration configuration)
         {
             _userService = userService;
             _configuration = configuration;
         }
+
+        // Yeni bir kullanıcı kaydı işlemi
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody] Register model)
         {
@@ -36,6 +37,8 @@ namespace NodebookApp.Controllers
             }
             return BadRequest("Hatalı");
         }
+
+        // Kullanıcı girişi işlemi
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromBody] Login model)
         {
@@ -59,4 +62,3 @@ namespace NodebookApp.Controllers
         }
     }
 }
-

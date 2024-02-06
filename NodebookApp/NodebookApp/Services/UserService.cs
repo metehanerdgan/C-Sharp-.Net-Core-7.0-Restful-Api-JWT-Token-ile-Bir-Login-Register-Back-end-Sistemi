@@ -10,8 +10,9 @@ using NodebookApp.SharedVM;
 
 namespace NodebookApp.Services
 {
-	public class UserService: IUserService
-	{
+    // IUserService arayüzünden kalıtım alarak kullanıcıyla ilgili işlemleri yönetir
+    public class UserService: IUserService
+    {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ISecurtiyService _jwtsecurity;
 
@@ -21,6 +22,7 @@ namespace NodebookApp.Services
             _jwtsecurity = jwtsecurity;
         }
 
+        // Kullanıcı girişi işlemini gerçekleştirir
         public async Task<UserManager> LoginUserAsycn(Login model)
         {
             try
@@ -59,6 +61,7 @@ namespace NodebookApp.Services
             }
         }
 
+        // Yeni kullanıcı kaydı işlemini gerçekleştirir
         public async Task<UserManager> RegisterUserAsycn(Register model)
         {
             try
@@ -100,4 +103,3 @@ namespace NodebookApp.Services
         }
     }
 }
-
